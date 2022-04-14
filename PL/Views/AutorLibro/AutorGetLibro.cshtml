@@ -1,0 +1,103 @@
+﻿@model ML.Libro
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Libros de Autor</h2>
+
+<div class="container">
+
+    @foreach (ML.Libro libro in Model.Libros)
+    {
+
+        <div class="col-md-4">
+            <div class="card">
+
+                <div class="card-header">LIBROS</div>
+                <div class="imagen">
+                    @if (libro.Imagen != null)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(libro.Imagen)" style="height:150px; width: 150px" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/no-products-found.PNG" style="height:150px; width: 150px" />
+                    }
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@libro.TituloLibro</h5>
+                    <p class="card-text">@libro.AñoPublicacion</p>
+
+                    </div>
+            </div>
+        </div>
+    }
+    <br />
+
+</div>
+
+<style>
+    .card {
+        margin: 30px auto;
+        background-color: white;
+        /*color: rgb(255, 255, 255);*/
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.377);
+        border-radius: 20px;
+    }
+
+    .imagen {
+        text-align: center;
+    }
+
+    .card-title {
+        text-align: center;
+        color: black;
+        font-size: 20px;
+    }
+
+    .card-header {
+        text-align: center;
+        color: black;
+        font-size: 20px;
+    }
+
+    .card-text {
+        text-align: center;
+        color: black;
+    }
+
+    .list-group-item {
+        text-align: center;
+        color: black;
+    }
+
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        width: 95%;
+        height: 100%;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    .button3 {
+        background-color: white;
+        color: black;
+        border: 2px solid white;
+    }
+
+        .button3:hover {
+            background-color: #0063ff;
+            color: white;
+        }
+</style>
+

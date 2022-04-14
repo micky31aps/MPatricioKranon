@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MPatricioKranonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Autor">
+    <Key>
+      <PropertyRef Name="IdAutor" />
+    </Key>
+    <Property Name="IdAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="AutorLibroes" Relationship="Self.FK__AutorLibr__IdAut__164452B1" FromRole="Autor" ToRole="AutorLibro" />
+  </EntityType>
+  <EntityType Name="AutorLibro">
+    <Key>
+      <PropertyRef Name="IdAutorLibro" />
+    </Key>
+    <Property Name="IdAutorLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdAutor" Type="Int32" />
+    <Property Name="IdLibro" Type="Int32" />
+    <NavigationProperty Name="Autor" Relationship="Self.FK__AutorLibr__IdAut__164452B1" FromRole="AutorLibro" ToRole="Autor" />
+    <NavigationProperty Name="Libro" Relationship="Self.FK__AutorLibr__IdLib__173876EA" FromRole="AutorLibro" ToRole="Libro" />
+  </EntityType>
+  <EntityType Name="Editorial">
+    <Key>
+      <PropertyRef Name="IdEditorial" />
+    </Key>
+    <Property Name="IdEditorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="LibroEditorials" Relationship="Self.FK__LibroEdit__IdEdi__1B0907CE" FromRole="Editorial" ToRole="LibroEditorial" />
+  </EntityType>
+  <EntityType Name="Libro">
+    <Key>
+      <PropertyRef Name="IdLibro" />
+    </Key>
+    <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TituloLibro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AñoPublicacion" Type="Int16" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="AutorLibroes" Relationship="Self.FK__AutorLibr__IdLib__173876EA" FromRole="Libro" ToRole="AutorLibro" />
+    <NavigationProperty Name="LibroEditorials" Relationship="Self.FK__LibroEdit__IdLib__1A14E395" FromRole="Libro" ToRole="LibroEditorial" />
+  </EntityType>
+  <EntityType Name="LibroEditorial">
+    <Key>
+      <PropertyRef Name="IdLibroEditorial" />
+    </Key>
+    <Property Name="IdLibroEditorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdLibro" Type="Int32" />
+    <Property Name="IdEditorial" Type="Int32" />
+    <NavigationProperty Name="Editorial" Relationship="Self.FK__LibroEdit__IdEdi__1B0907CE" FromRole="LibroEditorial" ToRole="Editorial" />
+    <NavigationProperty Name="Libro" Relationship="Self.FK__LibroEdit__IdLib__1A14E395" FromRole="LibroEditorial" ToRole="Libro" />
+  </EntityType>
+  <Association Name="FK__AutorLibr__IdAut__164452B1">
+    <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+    <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autor">
+        <PropertyRef Name="IdAutor" />
+      </Principal>
+      <Dependent Role="AutorLibro">
+        <PropertyRef Name="IdAutor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AutorLibr__IdLib__173876EA">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="0..1" />
+    <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="IdLibro" />
+      </Principal>
+      <Dependent Role="AutorLibro">
+        <PropertyRef Name="IdLibro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LibroEdit__IdEdi__1B0907CE">
+    <End Role="Editorial" Type="Self.Editorial" Multiplicity="0..1" />
+    <End Role="LibroEditorial" Type="Self.LibroEditorial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editorial">
+        <PropertyRef Name="IdEditorial" />
+      </Principal>
+      <Dependent Role="LibroEditorial">
+        <PropertyRef Name="IdEditorial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LibroEdit__IdLib__1A14E395">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="0..1" />
+    <End Role="LibroEditorial" Type="Self.LibroEditorial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="IdLibro" />
+      </Principal>
+      <Dependent Role="LibroEditorial">
+        <PropertyRef Name="IdLibro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MPatricioKranonEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Autors" EntityType="Self.Autor" />
+    <EntitySet Name="AutorLibroes" EntityType="Self.AutorLibro" />
+    <EntitySet Name="Editorials" EntityType="Self.Editorial" />
+    <EntitySet Name="Libroes" EntityType="Self.Libro" />
+    <EntitySet Name="LibroEditorials" EntityType="Self.LibroEditorial" />
+    <AssociationSet Name="FK__AutorLibr__IdAut__164452B1" Association="Self.FK__AutorLibr__IdAut__164452B1">
+      <End Role="Autor" EntitySet="Autors" />
+      <End Role="AutorLibro" EntitySet="AutorLibroes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AutorLibr__IdLib__173876EA" Association="Self.FK__AutorLibr__IdLib__173876EA">
+      <End Role="Libro" EntitySet="Libroes" />
+      <End Role="AutorLibro" EntitySet="AutorLibroes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LibroEdit__IdEdi__1B0907CE" Association="Self.FK__LibroEdit__IdEdi__1B0907CE">
+      <End Role="Editorial" EntitySet="Editorials" />
+      <End Role="LibroEditorial" EntitySet="LibroEditorials" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LibroEdit__IdLib__1A14E395" Association="Self.FK__LibroEdit__IdLib__1A14E395">
+      <End Role="Libro" EntitySet="Libroes" />
+      <End Role="LibroEditorial" EntitySet="LibroEditorials" />
+    </AssociationSet>
+    <FunctionImport Name="AñoPublicacionGet" ReturnType="Collection(MPatricioKranonModel.AñoPublicacionGet_Result)">
+      <Parameter Name="AñoPublicacion" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="AutorDelete">
+      <Parameter Name="IdAutorLibro" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AutorGetFecha" ReturnType="Collection(MPatricioKranonModel.AutorGetFecha_Result)">
+      <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+      <Parameter Name="AñoPublicacion" Mode="In" Type="Int16" />
+    </FunctionImport>
+    <FunctionImport Name="EditorialDelete">
+      <Parameter Name="IdLibroEditorial" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LibroAdd">
+      <Parameter Name="TituloLibro" Mode="In" Type="String" />
+      <Parameter Name="AñoPublicacion" Mode="In" Type="Int16" />
+      <Parameter Name="Imagen" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="LibroGetAutor" ReturnType="Collection(MPatricioKranonModel.LibroGetAutor_Result)">
+      <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LibroGetEditorial" ReturnType="Collection(MPatricioKranonModel.LibroGetEditorial_Result1)">
+      <Parameter Name="IdEditorial" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteLibro">
+      <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateLibro">
+      <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+      <Parameter Name="TituloLibro" Mode="In" Type="String" />
+      <Parameter Name="AñoPublicacion" Mode="In" Type="Int16" />
+      <Parameter Name="Imagen" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllLibro" ReturnType="Collection(MPatricioKranonModel.GetAllLibro_Result1)" />
+    <FunctionImport Name="GetByIdLibro" ReturnType="Collection(MPatricioKranonModel.GetByIdLibro_Result2)">
+      <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllAutor" ReturnType="Collection(MPatricioKranonModel.GetAllAutor_Result)" />
+    <FunctionImport Name="TituloGet" ReturnType="Collection(MPatricioKranonModel.TituloGet_Result)">
+      <Parameter Name="TituloLibro" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="AñoPublicacionGet_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="AutorGetFecha_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="true" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="LibroGetAutor_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="LibroGetEditorial_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="true" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="Binary" Name="Imagen1" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="LibroGetEditorial_Result1">
+    <Property Type="Int32" Name="IdLibro" Nullable="true" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="LibroImagen" Nullable="true" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="Binary" Name="EditorialImagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAllLibro_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetByIdLibro_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetByIdLibro_Result1">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetById_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAllLibro_Result1">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetByIdLibro_Result2">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAllAutor_Result">
+    <Property Type="Int32" Name="IdAutor" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="TituloGet_Result">
+    <Property Type="Int32" Name="IdLibro" Nullable="false" />
+    <Property Type="String" Name="TituloLibro" Nullable="true" MaxLength="50" />
+    <Property Type="Int16" Name="AñoPublicacion" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+</Schema>

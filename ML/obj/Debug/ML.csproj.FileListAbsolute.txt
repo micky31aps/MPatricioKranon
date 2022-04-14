@@ -1,0 +1,4 @@
+C:\Users\digis\Documents\Miguel Angel Patricio Sanchez\MPatricioKranon\ML\bin\Debug\ML.dll
+C:\Users\digis\Documents\Miguel Angel Patricio Sanchez\MPatricioKranon\ML\bin\Debug\ML.pdb
+C:\Users\digis\Documents\Miguel Angel Patricio Sanchez\MPatricioKranon\ML\obj\Debug\ML.dll
+C:\Users\digis\Documents\Miguel Angel Patricio Sanchez\MPatricioKranon\ML\obj\Debug\ML.pdb

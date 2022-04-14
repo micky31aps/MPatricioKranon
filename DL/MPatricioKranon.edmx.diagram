@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3abef2405bcf4fe095b9d3a65ee649f8" Name="Diagram1">
+        <EntityTypeShape EntityType="MPatricioKranonModel.Autor" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MPatricioKranonModel.AutorLibro" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MPatricioKranonModel.Editorial" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MPatricioKranonModel.Libro" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MPatricioKranonModel.LibroEditorial" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="MPatricioKranonModel.FK__AutorLibr__IdAut__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="MPatricioKranonModel.FK__AutorLibr__IdLib__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="MPatricioKranonModel.FK__LibroEdit__IdEdi__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="MPatricioKranonModel.FK__LibroEdit__IdLib__1A14E395" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

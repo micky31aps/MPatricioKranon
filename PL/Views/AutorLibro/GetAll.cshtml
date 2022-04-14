@@ -1,0 +1,67 @@
+﻿@model ML.Autor
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Autor</h2>
+
+@using (Html.BeginForm("AutorGetLibro", "AutorLibro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                @Html.LabelFor(model => Model.Autores, new { @class = "control-label" })
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+
+                    @Html.DropDownListFor(model => Model.IdAutor, new SelectList(Model.Autores, "IdAutor", "Nombre"), "Selecciona un Autor", htmlAttributes: new { id = "ddlAutor", @class = "form-control" })
+
+                </div>
+            </div>
+            @Html.ValidationMessageFor(model => model.IdAutor, null, new { @class = "text-danger" })
+
+        </div>
+
+        <div class="col-md-1">
+            <input type="submit" value="Buscar" class="btn btn-info" />
+        </div>
+    </div>
+
+}
+<hr />
+<div>
+    <br />
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td class="hidden">IdAutor</td>
+                <td>Nombre</td>
+                <td>Apellido Paterno</td>
+                <td>Apellido Materno</td>
+                <td>Imagen</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Autor autor in Model.Autores)
+            {
+                <tr>
+                    
+                    <td class="hidden">@autor.IdAutor</td>
+                    <td>@autor.Nombre</td>
+                    <td>@autor.ApellidoPaterno</td>
+                    <td>@autor.ApellidoMaterno</td>
+                    @if (autor.Imagen != null)
+                    {
+                        <td><img src="data:image/jpeg;base64,@Convert.ToBase64String(autor.Imagen)" style="height:150px; width: 150px" /></td>
+                    }
+                    else
+                    {
+                        <td><img src="~/Content/no_product.PNG" style="height:150px; width: 150px" /></td>
+                    }
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MPatricioKranonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Autor">
+    <Key>
+      <PropertyRef Name="IdAutor" />
+    </Key>
+    <Property Name="IdAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+    <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+    <Property Name="Imagen" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="AutorLibro">
+    <Key>
+      <PropertyRef Name="IdAutorLibro" />
+    </Key>
+    <Property Name="IdAutorLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAutor" Type="int" />
+    <Property Name="IdLibro" Type="int" />
+  </EntityType>
+  <EntityType Name="Editorial">
+    <Key>
+      <PropertyRef Name="IdEditorial" />
+    </Key>
+    <Property Name="IdEditorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" />
+    <Property Name="Imagen" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Libro">
+    <Key>
+      <PropertyRef Name="IdLibro" />
+    </Key>
+    <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TituloLibro" Type="varchar" MaxLength="50" />
+    <Property Name="AñoPublicacion" Type="smallint" />
+    <Property Name="Imagen" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="LibroEditorial">
+    <Key>
+      <PropertyRef Name="IdLibroEditorial" />
+    </Key>
+    <Property Name="IdLibroEditorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdLibro" Type="int" />
+    <Property Name="IdEditorial" Type="int" />
+  </EntityType>
+  <Association Name="FK__AutorLibr__IdAut__164452B1">
+    <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+    <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autor">
+        <PropertyRef Name="IdAutor" />
+      </Principal>
+      <Dependent Role="AutorLibro">
+        <PropertyRef Name="IdAutor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AutorLibr__IdLib__173876EA">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="0..1" />
+    <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="IdLibro" />
+      </Principal>
+      <Dependent Role="AutorLibro">
+        <PropertyRef Name="IdLibro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LibroEdit__IdEdi__1B0907CE">
+    <End Role="Editorial" Type="Self.Editorial" Multiplicity="0..1" />
+    <End Role="LibroEditorial" Type="Self.LibroEditorial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editorial">
+        <PropertyRef Name="IdEditorial" />
+      </Principal>
+      <Dependent Role="LibroEditorial">
+        <PropertyRef Name="IdEditorial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LibroEdit__IdLib__1A14E395">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="0..1" />
+    <End Role="LibroEditorial" Type="Self.LibroEditorial" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="IdLibro" />
+      </Principal>
+      <Dependent Role="LibroEditorial">
+        <PropertyRef Name="IdLibro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AñoPublicacionGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AñoPublicacion" Type="smallint" Mode="In" />
+  </Function>
+  <Function Name="AutorDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdAutorLibro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AutorGetFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdAutor" Type="int" Mode="In" />
+    <Parameter Name="AñoPublicacion" Type="smallint" Mode="In" />
+  </Function>
+  <Function Name="DeleteLibro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdLibro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="EditorialDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdLibroEditorial" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetAllAutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllLibro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetByIdLibro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdLibro" Type="int" Mode="In" />
+  </Function>
+  <Function Name="LibroAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TituloLibro" Type="varchar" Mode="In" />
+    <Parameter Name="AñoPublicacion" Type="smallint" Mode="In" />
+    <Parameter Name="Imagen" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="LibroGetAutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdAutor" Type="int" Mode="In" />
+  </Function>
+  <Function Name="LibroGetEditorial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdEditorial" Type="int" Mode="In" />
+  </Function>
+  <Function Name="TituloGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="TituloLibro" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="UpdateLibro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="IdLibro" Type="int" Mode="In" />
+    <Parameter Name="TituloLibro" Type="varchar" Mode="In" />
+    <Parameter Name="AñoPublicacion" Type="smallint" Mode="In" />
+    <Parameter Name="Imagen" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="MPatricioKranonModelStoreContainer">
+    <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AutorLibro" EntityType="Self.AutorLibro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Editorial" EntityType="Self.Editorial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LibroEditorial" EntityType="Self.LibroEditorial" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AutorLibr__IdAut__164452B1" Association="Self.FK__AutorLibr__IdAut__164452B1">
+      <End Role="Autor" EntitySet="Autor" />
+      <End Role="AutorLibro" EntitySet="AutorLibro" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AutorLibr__IdLib__173876EA" Association="Self.FK__AutorLibr__IdLib__173876EA">
+      <End Role="Libro" EntitySet="Libro" />
+      <End Role="AutorLibro" EntitySet="AutorLibro" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LibroEdit__IdEdi__1B0907CE" Association="Self.FK__LibroEdit__IdEdi__1B0907CE">
+      <End Role="Editorial" EntitySet="Editorial" />
+      <End Role="LibroEditorial" EntitySet="LibroEditorial" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LibroEdit__IdLib__1A14E395" Association="Self.FK__LibroEdit__IdLib__1A14E395">
+      <End Role="Libro" EntitySet="Libro" />
+      <End Role="LibroEditorial" EntitySet="LibroEditorial" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
